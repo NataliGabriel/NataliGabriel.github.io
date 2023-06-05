@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Álbum - Tudo que a Taylor escreveu sobre nós dois</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+       margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%; 
+
+    }
+
+    #playlist-container {
+      width: 90%;
+      padding: 40px;
+      box-sizing: border-box;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    #playlist-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    #playlist-header img {
+      width: 200px;
+      height: 200px;
+      margin-right: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #playlist-info {
+      flex-grow: 1;
+      flex-direction: column;
+    }
+
+    #playlist-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-right: auto;
+      cursor: pointer;
+    }
+    #playlist-subtitle {
+      font-size: 14px;
+      color: #888;
+      margin-top: 5px;
+    }
+    #track-list {
+      margin-top: 20px;
+    }
+
+    #track-list ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #track-list li {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .track-number {
+      font-size: 18px;
+      margin-right: 20px;
+      width: 20px;
+      text-align: right;
+      opacity: 0.5;
+    }
+
+    .track-info {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .track-info img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 10px;
+    }
+
+    .track-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .track-artist {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    #music-controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #222;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #music-controls span {
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #music-info {
+      display: flex;
+      align-items: center;
+    }
+
+    #music-info img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    #music-info span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    #lyrics-button {
+        margin-right: 50px;
+      border: none;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #lyrics-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 90%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      z-index: 2; /* Adicionado para que a caixa de texto fique sobreposta à tela principal */
+      visibility: hidden; /* Adicionado para ocultar inicialmente a caixa de texto */
+      opacity: 0; /* Adicionado para ocultar inicialmente a caixa de texto */
+      transition: visibility 0s, opacity 0.3s;
+      padding: 20px;
+      text-align: top;
+      color: white;
+    }
+
+    #lyrics-container.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #lyrics-content {
+        width: 40%;
+    }
+
+    @media (max-width: 600px) {
+      #playlist-container {
+        padding: 20px;
+      }
+
+      #playlist-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      #playlist-header img {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+
+      #playlist-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .track-number {
+        font-size: 16px;
+        margin-right: 10px;
+      }
+
+      .track-info img {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+      }
+
+      .track-title {
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+
+      .track-artist {
+        font-size: 12px;
+      }
+
+      #music-info img {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+      }
+
+      #music-info span {
+        font-size: 12px;
+      }
+
+      #lyrics-content {
+        max-width: 100%;
+        max-height: 100%;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="playlist-container">
+    <div id="playlist-header">
+      <img src="imgs/Screenshot_1.png" alt="Spotify Logo">
+      <div id="playlist-info">
+        <div id="playlist-title">Tudo que a Taylor escreveu sobre nós </div>
+        <div id="playlist-subtitle">NataliJr</div>
+      </div>      
+    </div>
+
+    <div id="track-list">
+      <ul>
+        <li>
+          <div class="track-number">1</div>
+          <div class="track-info" onclick="playMusic('songs/1.mp3', '1')">
+            <img src="imgs/1989.png" alt="Album 1">
+            <div>
+              <div id="titulo" class="track-title">You are In Love</div>
+              <div class="track-artist">Taylor Swift</div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="track-number">2</div>
+          <div class="track-info" onclick="playMusic('songs/2.mp3', '2')">
+            <img src="imgs/folklore.png" alt="Album 2" id="album">
+            <div>
+              <div id="titulo" class="track-title">Invisible String</div>
+              <div class="track-artist">Taylor Swift</div>
+            </div>
+          </div>
+        </li>
+        <li>
+            <div class="track-number">3</div>
+            <div class="track-info" onclick="playMusic('songs/3.mp3', '3')">
+              <img src="imgs/folklore.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">hoax</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">4</div>
+            <div class="track-info" onclick="playMusic('songs/4.mp3', '4')">
+              <img src="imgs/evermore.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">tolerate it</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">5</div>
+            <div class="track-info" onclick="playMusic('songs/5.mp3', '5')">
+              <img src="imgs/red.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">The Last Time</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">6</div>
+            <div class="track-info" onclick="playMusic('songs/6.mp3', '6')">
+              <img src="imgs/folklore.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">coney island</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">7</div>
+            <div class="track-info" onclick="playMusic('songs/7.mp3', '7')">
+              <img src="imgs/red.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">Better man</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">8</div>
+            <div class="track-info" onclick="playMusic('songs/8.mp3', '8')">
+              <img src="imgs/Midnights.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">Bejeweled</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">9</div>
+            <div class="track-info" onclick="playMusic('songs/12.mp3', '9')">
+              <img src="imgs/Midnights.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">The Great War</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">10</div>
+            <div class="track-info" onclick="playMusic('songs/13.mp3', '10')">
+              <img src="imgs/1989.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">Out Of The Woods</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">11</div>
+            <div class="track-info" onclick="playMusic('songs/14.mp3', '11')">
+              <img src="imgs/folklore.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">peace</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="track-number">12</div>
+            <div class="track-info" onclick="playMusic('songs/16.mp3', '12')">
+              <img src="imgs/lover.png" alt="Album 2" id="album">
+              <div>
+                <div id="titulo" class="track-title">Afterglow</div>
+                <div class="track-artist">Taylor Swift</div>
+              </div>
+            </div>
+          </li>
+        <!-- Adicione as outras faixas da mesma forma -->
+      </ul>
+    </div>
+
+  <div id="music-controls">
+    <div id="music-info">
+      <img src="imgs/Screenshot_1.png" alt="Album Art" id="album-art">
+      <span id="current-track"></span>
+    </div>
+    <div id="play-pause-button" onclick="playPause()">
+      <span id="play-icon">▶</span>
+      <span hidden id="pause-icon">❚❚</span>
+    </div>
+    <div id="lyrics-toggle" onclick="toggleLyrics()">Resenha  ...</div>
+  </div>
+
+  <div id="lyrics-container">
+    <div id="lyrics-content">
+      <!-- Conteúdo da caixa de texto com a letra da música -->
+  
+      <!-- Botão de sair -->
+    </div>
+  </div>
+
+  <script>
+    var audio = new Audio();
+
+    function playMusic(source, track) {
+      audio.src = source;
+      playPause();
+      document.getElementById('album-art').src = 'imgs/Screenshot_1.png';
+      document.getElementById('current-track').textContent = getName(track);
+    }
+
+    function getName(track){
+      if(track == '1') return 'You are In Love';
+      if(track == '2') return 'Invisible String';
+      if(track == '3') return 'hoax';
+      if(track == '4') return 'tolerate it';
+      if(track == '5') return 'The Last Time';
+      if(track == '6') return 'coney island';
+      if(track == '7') return 'Better man';
+      if(track == '8') return 'Bejeweled';
+      if(track == '9') return 'The Great War';
+      if(track == '10') return 'Out Of The Woods';
+      if(track == '11') return 'peace';
+      if(track == '12') return 'Afterglow';
+    }
+    function playPause() {
+      if (audio.paused) {
+        audio.play();
+        document.getElementById('play-icon').style.display = 'none';
+        document.getElementById('pause-icon').style.display = 'inline';
+      } else {
+        audio.pause();
+        document.getElementById('play-icon').style.display = 'inline';
+        document.getElementById('pause-icon').style.display = 'none';
+      }
+    }
+    function toggleLyrics() {
+      var lyricsContainer = document.getElementById('lyrics-container');
+      lyricsContainer.classList.toggle('show');
+      if (lyricsContainer.classList.contains('show')) {
+        var currentTrack = document.getElementById('current-track').textContent;
+        var lyrics = getLyricsByTrack(currentTrack);
+        lyricsContainer.innerHTML = '<p class="lyrics-text">'+ lyrics +'</p>';
+      } else {
+        lyricsContainer.innerHTML = '';
+      }
+    }
+    function getLyricsByTrack(track) {
+
+
+        if(track == 'You are In Love'){
+           return `"You are In Love" é uma canção romântica que descreve a história de um casal que começa a perceber que estão se apaixonando.
+          </br>
+</br> - Um olhar, quarto escuro; 
+</br> - Feita especialmente para você; 
+</br> - O tempo corre rápido demais, você reprisa em sua mente;
+</br>
+</br> Tudo começa com a taylor olhando para o teto ao que parece "reprisando" o dia em sua cabeça - Aqui ja me remete a nós
+</br> por que toda vez que a gente tinha um dia juntos ou se via de alguma maneira, na hora de dormir, quando fechava o olho,
+</br> passava um filme com lembranças do dia que tivemos juntos.
+</br>
+</br> - Conversa fiada, ele dirige;
+</br> - Café à meia-noite;
+</br> - A luz reflete;
+</br> - A corrente em seu pescoço;
+</br> - Ele diz: Olhe para cima;
+</br> - E seus ombros te tocam;
+</br> - Sem provas, um toque;
+</br> - Mas você sentiu o bastante;
+</br>
+</br> Aqui, como ja dito, é a taylor trazendo a tona o "passeio" que eles fizeram juntos, ela descreve cada tensão que existe 
+</br> em um relacionamento que está começando - Nessa parte, ele ja me traz em memória o nosso início em 2019, cada carinho, cada 
+</br> abraço era uma tensão exorbitante, ao ponto de todos a nossa volta sentir essa tensão.
+</br>
+</br> - Você consegue ouvir no silêncio, no silêncio
+</br> - Você consegue sentir na volta para casa, volta para casa
+</br> - Você consegue ver com as luzes apagadas, luzes apagadas
+</br> - Você está apaixonado, um amor verdadeiro
+</br> - Você está apaixonado
+</br>
+</br> Nesse refrão da música, a taylor começa a citar que está começando a perceber que talvez esteja apaixonada - Dentro 
+</br> dessa parte, consigo linkar com nossas primeiras conversas sobre um futuro, a famosa casa com tobogã... (kkk) e me remete ao 
+</br> que você conta de começar a se perguntar se estava começando a ter uma expectativa de futuro certo junto comigo.
+</br>
+</br> - Vocês se beijam em calçadas
+</br> - Vocês brigam e conversam
+</br>
+</br> Nesse momento acho que não tem nada a se comentar né (kkkk)
+</br>
+</br> - Pausa, e diz
+</br> - Você é minha melhor amiga
+</br> - E você sabia o que significava
+</br> - Ele está apaixonado
+</br>
+</br> Nesse contexto, taylor mostra que ele está completamente vulnerável com ela, ele não diz isso, mas pelo olhar e pelo rosto dele
+</br> ela percebe que ele está se vulnerabilizando para com ela, e ela sabia o que isso significava... "Ele está apaixonado" - Nessa 
+</br> parte da letra, consigo muito me ver nesse personagem quando, em 2020, voltando da faculdade dentro de um trem esperando ele partir
+</br> eu olhando para a janela ouvindo "Interstelar" eu percebo que, assim como a música me trazia uma certa paz, você ERA a minha paz, e 
+</br> foi naquele momento que eu provavelmente me toquei que não apenas um lance, mas era paixão que eu sentia... Eu também consigo linkar 
+</br> essa história com a mesma conversa dita no texto anterior, onde você respondia de uma forma positiva ao "Vamos casar rapidinho, 
+</br> só pra eu ver um negócio", ali foi a primeira vez que eu talvez tenha pensado de uma forma concreta que você está gostando de mim.
+</br>
+</br> - E você entende agora porque eles perdem a cabeça
+</br> - E lutam as guerras
+</br> - E porque eu passei minha vida inteira tentando colocar isso em palavras
+</br>
+</br> Sinceramente, aqui eu me coloco no lugar da Taylor, pois antes de você, nunca tinha entendido muito bem o que era amar e o ato de LUTAR
+</br> pelo amor, a primeira vez que eu lembro de sentir isso foi no meio da pandemia quando estávamos tendo aquelas super DR's e eu estava 
+</br> literalmente me sabotando achando que já tinha tudo acabado, porém, ao ver tua força de querer manter nossa relação, ali foi onde eu 
+</br> percebi que, valeria lutar essa guerra.
+</br>  
+</br>
+</br>
+</br>
+
+`;
+      }
+        if(track == 'Invisible String'){
+            return `
+            "Invisible String" é uma canção que fala sobre conexões inexplicáveis e destinos entrelaçados, e sinceramente, uma das 
+</br> canções da Taylor que eu mais tenho apreço emocional.
+</br>
+</br> - Onde eu costumava ler no Centennial Park;
+</br> - Eu costumava pensar que conheceria alguém ali;
+</br> - Azul esverdeado era a cor da sua camiseta;
+</br> - Quando você tinha dezesseis anos na loja de Yogurt;
+</br> - Você costumava trabalhar lá para ganhar uma graninha;
+</br> 
+</br> Aqui a Taylor conta basicamente o que faziam antes de um conhecer o outro e sinceramente me leva a pensar em como a gente teve 
+</br> uma vida interiro vivendo incrivelmente próximos e simplesmente nunca tínhamos se quer se visto (você menos ainda do que eu kkk)...
+</br> Isso me faz lembrar do dia que eu encontrei seu pai na antiga Padaria da Dom Bosco, que hoje é o "Esfirra do Zé" e depois daquela
+</br> situação, eu passei dias calculando lugares onde você poderia morar próximo de mim, e confesso que nunca me passou pela cabeça ser
+</br> tão perto assim
+</br>
+</br> - E não é bem bonito pensar
+</br> - Que o tempo todo havia uma
+</br> - Corda invisível
+</br> - Amarrando você a mim
+</br>
+</br> Eu sinceramente pensei em pegar cada parte da música e escrever sobre, mas eu imagino que iria me repetir demais, então eu peguei a 
+</br> última parte dessa música e vou dizer um pouco sobre o que eu penso - A música destaca que muitas vezes, as coisas mais importantes
+</br> em nossas vidas são inesperadas e quando paramos pra pensar, vemos que tudo que passamos na vida, nos trouxe até esse momento, como 
+</br> a frase que a taylor diz "Inferno foi a jornada, mas que me trouxe o paraíso". É engraçado pensar em todas as vezes que já tentamos
+</br> nos distanciar, e literalmente como a própria musica diz "Um único fio dourado Me amarrou a você", e não importava se íamos pra 
+</br> lugares diferentes, esse fio nos mantia grudados. É loucura pensar que o tanto que tivemos essa conexão instantânea no momento que 
+</br> trocamos o primeiro "Chegou bem ai?" e é mais louco ainda perceber que desde então, nunca conseguimos largar um do outro.
+`;
+        }
+        if(track == 'hoax'){
+          return `
+          "Hoax" é uma balada com um sentimento de melancolia que aborda temas como desilusão, decepção e frustração amorosa, e a dor de um 
+</br> relacionamento que chegou ao fim.
+</br>
+</br> - Meu único;
+</br> - Minha peça chave;
+</br> - Meu sol com eclipse;
+</br>
+</br> ----------------------
+</br>
+</br> - Meu único;
+</br> - Meu reino desfeito;
+</br> - Minha bateria quebrada;
+</br>
+</br> Sinceramente, essa música é tão intensa, que lendo a tradução em quanto ouvia ela, confesso que subiu um nó na garganta... Essa música 
+</br> fala um pouco sobre o término precoce de um casal, Porque "precoce"? Por que da pra sentir que ela está tendo esses pensamentos enquanto
+</br> ainda está com o seu "herói" que a muito tempo já morreru pra ela - Escolhi essas duas partes pois, a primeira parte cantada com 
+</br> a última cantada, vemos um sentimento de luto através da música, do início até o fim, passando desde o momento da negação até o momento 
+</br> que ela aceita que está acabado.
+</br> Essa música honestamente, me traz em mente tantas vezes que passamos por essa situação, mas eu agradeço pois, mesmo com tudo ao pó, juntos
+</br> nós trouxemos novamente o fogo de volta "Eu sou cinza do seu fogo". Poderia citar inúmeras vezes que passamos por esse sentimento de "luto"
+</br> mas acho que ficaria muita coisa pra se ler, então vou trazer em memória o que acabamos de passar, mesmo com o vidro partido em pequenos cacos
+</br> nós nos juntamos, e conseguimos montar tudo novamente. De verdade, revelo pra ti que essa música chegou a me "Desnortear", ou você copia a taylor
+</br> ou a taylor ouve nossas conversas... Aproveito esse momento pra pedir novamente sinceras desculpas, sinto muito por tanto machucados e por continuar
+</br> tacando limão nas tuas cicatrizes, de verdade, eu sinto muito mesmo. (Eu sinceramente tô com inúmeros pensamentos dentro de mim, mas peço perdão porque
+</br> não consigo trazer eles a tona).
+          
+          
+          
+          `;
+        }
+        if(track == 'tolerate it'){
+          return `
+          A música "Tolerate It" retrata uma história de um casal em que um dos parceiros sente que o outro não está verdadeiramente envolvido
+          </br> no relacionamento.
+          </br>
+          </br> - Eu espero na porta como se eu fosse apenas uma criança;
+          </br> - Uso minhas melhores cores para o seu retrato;
+          </br> - Arrumo a mesa com as coisas chiques;
+          </br> - Eu sei que meu amor deveria ser celebrado;
+          </br> - Mas você o tolera
+          </br>
+          </br> Creio que seja um bom trecho pra se colocar, pois já passa toda a ideia da música em si. Nessa canção, taylor conta um pouco da sua
+          </br> "frustração" de sentir que ama e faz tudo sobre teu companheiro, e simplesmente não recebe isso em troca. - Eu lembro de quando você
+          </br> me contou dessa música, junto com todos os teus sentimentos envolvidos, acho até cômico como passamos por quase tudo que essa mulher 
+          </br> já escreveu, podemos voltar até a fase onde tudo isso aconteceu, onde simplesmente como diz a música "Enquanto você estava construindo 
+          </br> outros mundos, onde eu estava?" fase conturbada que tivemos onde eu simplesmente desliguei minha chave geral por um bom tempo, você 
+          </br> estava se doando completamente ao nosso relacionamento, enquanto eu estava me desenvolvendo na minha carreira dentro da "Easy" e infelizmente,
+          </br> te deixando do lado de fora, assistindo apenas pela vitrine
+          </br>
+          </br> - Agora estou implorando por notas de rodapé na história da sua vida;
+          </br> - Desenhando corações na assinatura;
+          </br>
+          </br> Na época você se contentava com pouco ou quase nada de conexão emocional, simplesmente sempre que você tentava eu me esquivava, lembro sinceramente
+          </br> de você citar todos esses sentimentos e eu simplesmente não entendendo os teus sentimentos, mas após muita luta da sua parte (obrigado), finalmente
+          </br> eu acordei do sono profundo, e tamo ai na luta da Conexão Emocional ❤.
+          `;
+        }
+        if(track == 'The Last Time'){
+          return `          
+          "The Last Time" aborda um relacionamento tumultuado e a sensação de estar preso em um
+          </br> ciclo de despedidas e reconciliações. 
+          </br>
+          </br> - Esta é a ultima vez que estou te pedindo isso
+          </br> - Coloque meu nome no topo na sua lista
+          </br> - Esta é a ultima vez que eu pergunto o porquê
+          </br> - Você parte meu coração num piscar de olhos
+          </br>
+          </br> Música com basicamente essas frases sendo cantada por exaustivos 5:00, 
+          </br> penso que a Taylor teve a INTENÇÃO de transformar a música em algo "exaustiva" e 
+          </br> "repetitiva", para que os ouvintes possam sentir um pouco da exaustão que ela está
+          </br> sentindo dentro daquele relacionamento, sempre repetindo o mesmo sentimento que,
+          </br> nunca melhora. - Música incrivelmente intensa e com tudo para se relacionar com nós
+          </br> (infelizmente), vou citar novamente o que passamos agora, num caos onde existe um vai
+          </br> e volta incessante de sentimentos e nunca são resolvidos, somente enterrados novamente
+          </br> passamos por esse momento de "Ultimato" vindo de você o famoso "Ou vai ou rala", sinto 
+          </br> muito por ter feito você sofrer tanto por repetição, nunca trazendo um gesto de melhora,
+          </br> somente "palavras", novamente trago em conversa um pedido de desculpas por tudo que você
+          </br> está passando, mas eu também agradeço a você por ter aguentado tanto tempo, te acho 
+          </br> corajosa ao extremo e incrivelmente determinada. Creio que a partir dessa conversa que 
+          </br> tivemos hoje, estarei em constante melhora e aprendizado, não indo correndo direto pra 
+          </br> PERFEIÇÃO
+          `; 
+        }
+        if(track == 'coney island'){
+          return `"Conney Island" parece ser uma música da taylor que ela canta para si mesma, e repassa por todos os antigos relacionamentos dela.
+          `;
+        }
+        if(track == 'Better man'){
+          return `
+          Better man aparenta ser um pensamento da Taylor sobre um relacionamento complicado e tóxico que finalizou recentemente, e incessantemente
+          </br> ela pensa em seu deseja que seu parceiro fosse um homem melhor. 
+          </br> - Do que amando um homem que;
+          </br> - Não sabia o que ele tinha;
+          </br> - Quando ele o tinha; 
+          </br>
+          </br> Confesso que ao ouvir essa parte, fiquei um pouco ofendido... A música conta um pouco do sentimento de frustração da Taylor de "poderia
+          </br> ter dado certo", porém ela relembra todas as vezes que ele foi tóxico com ele.
+          </br>
+          </br> - Eu gostaria que não fosse quatro da manhã
+          </br> - Parada em frente ao espelho
+          </br> - Dizendo para mim mesma: Você sabe que tinha que fazer isso
+          </br>
+          </br> Creio que essa parte seja a que mais reflete a você, quantas vezes você me diz que teve algum surto no banheiro e falou consigo mesma
+          </br>
+          </br> - E eu vejo
+          </br> - O dano permanente que você fez em mim
+          </br> - Nunca mais, eu só queria poder esquecer
+          </br> - Quando era mágico
+          </br>
+          </br> Aqui podemos trazer a tona talvez o desejo de esquecer nossos bons momentos, e somente focar nas coisas ruins, pra talvez assim, 
+          </br> pudesse jogar as coisas pro abismo mais rápido.
+          </br> 
+          </br> - Afasta o seu amor
+          </br> - Como se fosse algum tipo de arma carregada
+          </br>
+          </br> Aqui penso que podemos levar em conta seu medo de eu estar enganando você com carinho ou amor.
+          </br> Mais um momento pra trazer a tona que, serei um "Better man" para você. 
+          </br> Quero Aproveitar também esse texto, para pedir perdão mais uma vez, pelas vezes que eu não soube lidar com o que tinha, por todas as 
+          </br> que eu te botei numa crise durante a madrugada e te fiz ir pra dentro do teu banheiro e por todo dano permanente no qual eu fiz em você.
+          </br> Eu sinto muito.
+
+
+
+
+
+
+          `;
+        }
+        if(track == 'Bejeweled'){
+          return `
+          "Bejeweled" é um momento de libertação para Taylor onde ela talvez tenha passado algum tempo se humilhando por alguma pessoa e 
+          </br> de "Loucura", ela se solta das garras da "Indiferença" do companheiro, e se joga no fato de que tem outros na "fila" 
+          </br> esperando a vez de estarem com ela.
+          </br>
+          </br> - Garoto, acho que tenho sido uma garota boa demais
+          </br> - Fiz todas as atividades extracurriculares, então fui avaliada por média 
+          </br> - Acho que é hora de dar algumas aulas
+          </br> 
+          </br> Nesse trecho me remete ao sentimento de "Estou fazendo meu melhor e não estou sendo recompensada da maneira correta",
+          </br> o que me traz o seu sentimento de sempre estar fazendo o melhor sobre nós e simplesmente eu não trago uma resposta a 
+          </br> altura das tuas ações, também consigo trazer ao fato de que talvez você queira me largar pra ir para as pessoas que 
+          </br> talvez estejam esperando na fila para serem os próximos (Não faz isso por favor...).
+          `;
+        }
+        if(track == 'The Great War'){
+          return `
+          </br> - Sempre se lembre
+          </br> - nós queimamos para melhorarmos
+          </br> - Eu juro que sempre serei sua
+          </br> - Porque sobrevivemos à Grande Guerra
+          </br>
+          </br> Acredito que essa música não precisa de nenhum resumo ou algum tipo de contexto, até porque nós VIVEMOS
+          </br> por essa guerra, passamos por poucas e boas, inclusive, estamos passando, mas creio que o fim da guerra 
+          </br> está finalmente chegando, já consigo ver terra em meio desse caos do mar, já consigo ver a bandeira de 
+          </br> vitória do Mário ao fim, pra finalmente ao passar por tudo, diremos um ao outro "Eu juro que sempre serei sua
+          </br> Porque sobrevivemos à Grande Guerra". Te amo (●'◡'●)
+          `;
+        }
+        if(track == 'Out Of The Woods'){
+          return `
+          </br> - Olhando agora
+          </br> - Para dezembro passado (dezembro passado)
+          </br> - Nós fomos feitos para desmoronar
+          </br> - Depois nos reconstruirmos de novo
+          </br>
+          </br> Essa música parece até brincadeira... Como essa mulher faz isso?
+          </br> Acredito que possa ser uma continuação de The Great War? ou até quem
+          </br> sabe se passa junto com toda a guerra que vinha acontecendo. - Essa canção 
+          </br> me faz refletir um pouco na nossa história e percebo que TODAS as vezes que 
+          </br> "Desmoronamos" o castelo do nosso relacionamento, parece que era EXATAMENTE para
+          </br> isso acontecer, pois montando os tijolos soltos, percebemos os nossos erros, e buscamos 
+          </br> colocar um pouco mais de cimento nele, pra esse tijolo não voltar a cair. E a todo momento 
+          </br> que estamos no meio dessa "Guerra", todos os dias eu acordo e me pergunto a mesma coisa que 
+          </br> a Taylor "Já estamos fora de perigo?"
+          `;
+        }
+        if(track == 'peace'){
+          return `
+          </br> - Sua integridade me faz parecer pequena
+          </br> - Você pinta paisagens de sonhos na parede
+          </br> - Eu falo merda com meus amigos, é como se eu estivesse desperdiçando sua honra
+          </br> - E você sabe que eu faria tudo por você
+          </br> - Sentaria com você nas trincheiras
+          </br> - Te daria minha vida selvagem, te daria um filho
+          </br> - Te daria o silêncio que só acontece quando duas pessoas se entendem
+          </br> - Família que escolhi, agora que vejo seu irmão como meu irmão
+          </br> - É o suficiente?
+          </br> - Mas há ladrões a leste, palhaços a oeste
+          </br> - Eu te daria meu Sol, te daria o meu melhor
+          </br> - Mas a chuva sempre virá se você estiver comigo
+          </br>
+          </br> Sinceramente, ouvindo essa música eu senti um espelho pra mim, sinto a taylor contando não as suas falhas e fraquezas 
+          </br> Mas as minhas, juntamente com os erros ela traz motivos no qual ela sente que seja bom, mas no final ela finaliza mostrando
+          </br> mais uma vez sua insegurança para o ouvindo - De verdade, essa música chegou até me emocionar, sempre na hora de dormir fico
+          </br> nesse "loop" de pensamentos inseguros que tenho sobre mim relacionado ao nosso relacionamento, mas como a Taylor canta eu faço 
+          </br> em tom de questionamento "Você sabe que eu faria tudo por você"? Sentaria nas trincheiras da nossa "Grande Guerra" como um momento
+          </br> de paz e harmonia somente para te ouvir, te daria os 7 filhos que você sonhava, te daria a minha própria vida em troca da sua 
+          </br> felicidade, mas mesmo assim em algum momento "A chuva sempre virá se você estiver comigo", então dia após dia me fica o questionamento 
+          </br> tudo isso "Seria o suficiente se eu nunca pudesse te dar paz?"
+          `;
+        }
+        if(track == 'Afterglow'){
+          return `
+          </br> - Ei, é tudo culpa minha, na minha cabeça
+          </br> - Fui eu quem nos incendiou
+          </br> - Mas não era o que eu queria
+          </br> - Me desculpe por ter te machucado
+          </br> - Eu não quero fazer, eu não quero fazer isso com você
+          </br> - Eu não quero perder, eu não quero perder isso com você
+          </br> - Eu preciso dizer: Ei, é tudo culpa minha, só não vá embora
+          </br> - Me encontre no crepúsculo
+          </br> 
+          </br> De todas as músicas, eu sinto que essa seria como eu conversando contigo, um pedido de desculpas sobre meus maus atos para contigo.
+          </br> Eu confesso que sinto que não tenho nada a adicionar nessa música, pois é como meu sentimento escrito numa canção, então eu peço que 
+          </br> você reouça essa música pensando em eu pedindo desculpas para contigo. A única coisa que mudaria seria a parte "Disparei como sirenes,
+          </br> apenas chorando" para "Disparei como sirenes, apenas sendo agressivo".
+          </br> Eu sei que tudo isso é culpa minha, e eu sinto MUITO mesmo, sei que fui eu que fui quebrando aos poucos a base do nosso castelo, 
+          </br> mas não era o que eu queria, me perdoa por ter te machucado, eu não quero te perder, eu não quero te perder....
+          `;
+        }
+      }
+  </script>
+</body>
+</html>

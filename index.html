@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reprodução de Áudio</title>
+  <style>
+    body {
+      background-color: #282828;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #header {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #header img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+    }
+
+    #playlist {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #playlist p {
+      font-size: 18px;
+    }
+
+    #buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px;
+      width: 150px;
+    }
+
+    .green-button {
+      background-color: #1db954;
+      color: #fff;
+      border: none;
+    }
+
+    .green-button:hover {
+      background-color: #1ed760;
+    }
+
+    .gray-button {
+      background-color: #666;
+      color: #fff;
+      border: none;
+    }
+
+    .gray-button:hover {
+      background-color: #555;
+    }
+
+    @media screen and (max-width: 480px) {
+      #header img {
+        width: 150px;
+        height: 150px;
+      }
+
+      #playlist p {
+        font-size: 16px;
+      }
+
+      .button {
+        width: 120px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <img src="imgs/Screenshot_1.png" alt="Nós">
+  </div>
+
+  <div id="playlist">
+    <p>NataliJr está te convidando para participar da playlist "Tudo que a Taylor escreveu sobre nós dois".</p>
+  </div>
+
+  <div id="buttons">
+    <button class="button green-button" onclick="openAlbumPage()">Participar</button>
+    <button class="button gray-button">Talvez depois</button>
+  </div>
+
+  <script>
+    function openAlbumPage() {
+      // Redirecionar para a página do álbum
+      window.location.href = "album.html";
+    }
+  </script>
+</body>
+</html>
